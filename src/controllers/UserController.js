@@ -1,5 +1,8 @@
+import crypto from 'crypto';
+
 import Book from '../app/models/Book';
 import User from '../app/models/User';
+import VerificationToken from '../app/models/VerificationToken';
 
 class UserController {
   // GET request to gather specific data
@@ -21,13 +24,21 @@ class UserController {
 
   // POST request to store data
   async store(req, res) {
-    const { name, age } = req.body;
-    const user = await User.create({
-      name,
-      age,
+    const user = await User.create(req.body);
+
+    const expirationDate = new Date();
+    expirationDate.setHours(expirationDate.getHours() + 2);
+
+    const token = await VerificationToken.create({
+      userId: user.id,
+      token: crypto.randomBytes(16).toString('hex'),
+      expirationDate,
     });
 
-    return res.status(200).json(user);
+    return res.status(200).json({
+      user,
+      token,
+    });
   }
 
   // PUT/PATCH request to update data

@@ -2,16 +2,13 @@ import Sequelize, { Model } from 'sequelize';
 
 class Book extends Model {
   static init(sequelize) {
-    super.init(
-      {
-        name: Sequelize.STRING,
-      },
-      {
-        sequelize,
-        tableName: 'book',
-        underscored: true,
-      },
-    );
+    super.init({
+      name: Sequelize.STRING,
+    }, {
+      sequelize,
+      tableName: 'book',
+      underscored: true,
+    });
     return this;
   }
 

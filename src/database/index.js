@@ -2,11 +2,13 @@ import Sequelize from 'sequelize';
 
 import Book from '../app/models/Book';
 import User from '../app/models/User';
+import VerificationToken from '../app/models/VerificationToken';
 import config from '../config/database';
 
 const models = [
   User,
   Book,
+  VerificationToken,
 ];
 
 class Database {
