@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 
+import Mail from '../lib/Mail';
 import Book from '../app/models/Book';
 import User from '../app/models/User';
 import VerificationToken from '../app/models/VerificationToken';
@@ -33,6 +34,17 @@ class UserController {
       userId: user.id,
       token: crypto.randomBytes(16).toString('hex'),
       expirationDate,
+    });
+
+    await Mail.sendMail({
+      from: '"Gabriel Franco" <gabrielfdg10@gmail.com>',
+      to: `"${user.name}" <${user.email}>`,
+      subject: 'Conta criada em BrasilCertec',
+      template: 'userCreated',
+      context: {
+        name: user.name,
+        token: token.token,
+      },
     });
 
     return res.status(200).json({

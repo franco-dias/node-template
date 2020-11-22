@@ -11,7 +11,7 @@ class VerificationTokenController {
     });
 
     if (!token || new Date() > token.expirationDate) {
-      return res.sendFile(path.join(__dirname, '..', 'templates', 'token', 'error.html'));
+      return res.sendFile(path.join(__dirname, '..', 'views', 'token', 'error.html'));
     }
 
     const user = await User.findByPk(token.userId);
@@ -19,7 +19,7 @@ class VerificationTokenController {
     await user.save();
     await token.destroy();
 
-    return res.sendFile(path.join(__dirname, '..', 'templates', 'token', 'verified.html'));
+    return res.sendFile(path.join(__dirname, '..', 'views', 'token', 'verified.html'));
   }
 
   async delete(req, res) {
@@ -29,14 +29,14 @@ class VerificationTokenController {
     });
 
     if (!token) {
-      return res.sendFile(path.join(__dirname, '..', 'templates', 'token', 'error.html'));
+      return res.sendFile(path.join(__dirname, '..', 'views', 'token', 'error.html'));
     }
 
     const user = await User.findByPk(token.userId);
     await token.destroy();
     await user.destroy();
 
-    return res.sendFile(path.join(__dirname, '..', 'templates', 'token', 'deleted.html'));
+    return res.sendFile(path.join(__dirname, '..', 'views', 'token', 'deleted.html'));
   }
 }
 
