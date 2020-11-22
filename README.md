@@ -8,6 +8,8 @@ Eslint, Sequelize e Nodemon com Sucrase estão previamente configurados.
 *dotenv* - arquivo .env configurado, contendo somente a porta.
 *sequelize* - configurações de conexão em `src/config/database.js`, paths em `.sequelizerc`.
 *eslint* - configurado no padrão do AirBnB.
+*nodemailer* - envio de e-mail pré-configurado
+*express-handlebars* - suporte para templates no envio de e-mails.
 
 ## Árvore de arquivos
 ```
@@ -16,12 +18,21 @@ src
   |_models
 |_config
   |_database.js (autenticação do sequelize)
+  |_mail.js (autenticação SMTP)
 |_controllers
 |_database
   |_migrations
   |_seeders
   |_index.js (carregamento e inicialização dos models)
+|_lib
+  |_ Mail.js (classe de envio de e-mail)
 |_routes
+|_views
+  |_emails
+    |_layouts (layout padrão de envio de email
+    |_partials ("componentes" reutilizáveis para envio de e-mail)
+    >|_ *.hbs (templates de e-mail)
+  |_token (views relativas à confirmação de e-mail)
 |_app.js (ponto de entrada express)
 .env
 .sequelizerc (configurações de paths do sequelize)
@@ -30,6 +41,14 @@ nodemon.json
 package.json
 README.md 
 ```
+
+## Configuração de ambiente
+* Instalar o docker: https://docs.docker.com/engine/install/ubuntu/
+* Criar um container para o banco de dados: https://hub.docker.com/_/postgres
+* Criar somente o banco de dados na mão (recomendo o postbird pra Linux)
+* Criar uma conta gratuita de SMTP: https://mailtrap.io
+* Criar um arquivo .env (usar o .env.example como modelo)
+* Preencher autenticação de e-mail e banco de dados
 
 ## Inicialização
 * Clonar o projeto:   `git clone https://github.com/franco-dias/node-template.git`
